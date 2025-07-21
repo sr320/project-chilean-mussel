@@ -1,0 +1,58 @@
+---
+title: "01-genome"
+format: html
+editor: visual
+---
+
+
+# Look at genome 
+
+Lets look at genome and prepare for bismark (program for methylation)
+
+
+
+```{bash}
+cd ../data
+
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/965/363/235/GCA_965363235.1_xbMytGall1.hap1.1/GCA_965363235.1_xbMytGall1.hap1.1_genomic.fna.gz
+
+
+```
+
+```{bash}
+gunzip ../data/GCA_965363235.1_xbMytGall1.hap1.1_genomic.fna.gz
+
+```
+
+
+
+
+```{bash}
+head ../data/GCA_965363235.1_xbMytGall1.hap1.1_genomic.fna 
+```
+
+
+```{bash}
+grep -c ">" ../data/GCA_965363235.1_xbMytGall1.hap1.1_genomic.fna 
+```
+
+
+
+
+# bismark
+
+```{bash}
+# Directories and programs
+bismark_dir="/home/shared/Bismark-0.24.0"
+bowtie2_dir="/home/shared/bowtie2-2.4.4-linux-x86_64/"
+genome_folder="../data/"
+
+${bismark_dir}/bismark_genome_preparation \
+--verbose \
+--parallel 4 \
+--path_to_aligner ${bowtie2_dir} \
+${genome_folder}
+```
+
+
+
