@@ -1,0 +1,8 @@
+---
+title: "01-genome"
+format: html
+editor: visual
+---
+
+
+# Look at genome 
