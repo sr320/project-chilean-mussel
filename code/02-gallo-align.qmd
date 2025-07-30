@@ -4,7 +4,6 @@ format: html
 editor: visual
 ---
 
-
 ```{bash}
 
 # Directories and programs
@@ -23,7 +22,6 @@ reads_dir="../data/Raw_WGBS_Mch/"
 -2 ${reads_dir}LCo_BSr1_R2.fastq \
 -o ../output/02-gallo-align/gallo-out
 ```
-
 
 ```{bash}
 # Directories and programs
@@ -64,7 +62,6 @@ for score in "${score_min_params[@]}"; do
         >> "$log_file" 2>&1
 done
 ```
-
 
 ```{bash}
 #!/bin/bash
@@ -110,4 +107,61 @@ glimpse(summary_df)
 View(summary_df)
 ```
 
+
+
+```{bash}
+
+# Directories and programs
+bismark_dir="/home/shared/Bismark-0.24.0"
+bowtie2_dir="/home/shared/bowtie2-2.4.4-linux-x86_64/"
+genome_folder="../data/"
+reads_dir="../data/Raw_WGBS_Mch/"
+
+cd ../output/02-gallo-align/gallo-out/
+
+find *.bam | \
+xargs basename -s .bam | \
+xargs -I{} ${bismark_dir}/deduplicate_bismark \
+--bam \
+--paired \
+{}.bam 
+
+```
+
+
+```{bash}
+# Directories and programs
+bismark_dir="/home/shared/Bismark-0.24.0"
+
+cd ../output/02-gallo-align/gallo-out/
+
+${bismark_dir}/bismark_methylation_extractor \
+--bedGraph \
+--counts \
+--comprehensive \
+--merge_non_CpG \
+--multicore 42 \
+--buffer_size 75% \
+*deduplicated.bam
+```
+
+```{bash}
+
+# Directories and programs
+bismark_dir="/home/shared/Bismark-0.24.0"
+bowtie2_dir="/home/shared/bowtie2-2.4.4-linux-x86_64/"
+genome_folder="../data/"
+reads_dir="../data/Raw_WGBS_Mch/"
+
+cd ../output/02-gallo-align/gallo-out/
+
+find *deduplicated.bismark.cov.gz \
+| xargs basename -s _trimmed_bismark_bt2.deduplicated.bismark.cov.gz \
+| xargs -I{} ${bismark_dir}/coverage2cytosine \
+--genome_folder ${genome_folder} \
+-o {} \
+--merge_CpG \
+--zero_based \
+{}_bismark_bt2.deduplicated.bismark.cov.gz
+```
 
