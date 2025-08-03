@@ -55,8 +55,6 @@ curl -O "https://gannet.fish.washington.edu/v1_web/owlshell/bu-github/project-ch
 
 ```
 
-
-
 ```{bash}
 
 cd ../data
@@ -65,6 +63,7 @@ curl -O "https://gannet.fish.washington.edu/v1_web/owlshell/bu-github/project-ch
 
 
 ```
+
 Preparing Chilean Genome
 
 ```{bash}
@@ -79,7 +78,6 @@ ${bismark_dir}/bismark_genome_preparation \
 --path_to_aligner ${bowtie2_dir} \
 ${genome_folder}
 ```
-
 
 ```{bash}
 
@@ -99,10 +97,6 @@ curl -O "https://gannet.fish.washington.edu/v1_web/owlshell/bu-github/project-ch
 
 ```
 
-```
+\`\`\`
 
 Aligning reads
-
-
-
-
