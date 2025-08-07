@@ -1,4 +1,4 @@
-rsync -avz ../project-chilean-mussel \
+rsync -av ../project-chilean-mussel \
 --exclude='*.sam' \
 --exclude='tmp*' \
 --exclude='*C_to_T.fastq' \
